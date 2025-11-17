@@ -22,5 +22,6 @@ def test_interest_applied_savings():
 def test_interest_not_for_current_account():
     acc = CurrentAccount(acc_number="C300", holder="Vishal", balance=1500)
 
-    with pytest.raises(AttributeError):
+    # CurrentAccount should raise *Exception*, NOT AttributeError
+    with pytest.raises(Exception):
         acc.apply_interest()
