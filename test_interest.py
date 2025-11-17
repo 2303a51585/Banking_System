@@ -1,6 +1,7 @@
 import pytest
 from models import SavingsAccount, CurrentAccount
 
+
 def test_interest_applied_savings():
     acc = SavingsAccount(
         acc_number="S300",
@@ -9,11 +10,9 @@ def test_interest_applied_savings():
         interest_rate=0.06
     )
 
-    # apply_interest returns Transaction object → extract interest amount
     transaction = acc.apply_interest(months=1)
     interest_added = transaction.amount
 
-    # monthly interest = balance * rate / 12
     expected = 1200 * (0.06 / 12)
 
     assert round(interest_added, 2) == round(expected, 2)
@@ -23,6 +22,5 @@ def test_interest_applied_savings():
 def test_interest_not_for_current_account():
     acc = CurrentAccount(acc_number="C300", holder="Vishal", balance=1500)
 
-    # CurrentAccount has no apply_interest(), so AttributeError is expected
     with pytest.raises(AttributeError):
         acc.apply_interest()
